@@ -11,6 +11,7 @@ from DB import data
 
 client = discord.Client()
 botColor = discord.Colour(0xfefc2e)
+IMDbKey="KEY"
 
 
 def makeCamembert(information, my_filename):
@@ -160,7 +161,7 @@ async def on_message(message):
     #    return
     if message.content.startswith('$rating '):
         movieChoose, stat = await pretraitement(message, '$rating ',
-                                                "https://imdb-api.com/en/API/UserRatings/k_cybyscn8/")
+                                                "https://imdb-api.com/en/API/UserRatings/"+IMDbKey+"/")
         if stat is not None:
             file = makeCamembert(stat, 'camembert.png')
             embed = discord.Embed(title=movieChoose, colour=botColor)
