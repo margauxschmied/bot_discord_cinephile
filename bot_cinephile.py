@@ -109,7 +109,7 @@ def searchID(information, movie):
 
 async def pretraitement(message, commande, urlInfo):
     film = message.content[len(commande):]
-    url = "https://imdb-api.com/en/API/Search/k_cybyscn8/" + film
+    url = "https://imdb-api.com/en/API/Search/"+IMDbKey+"/" + film
 
     movieChoose = None
     info = None
@@ -127,13 +127,13 @@ async def pretraitement(message, commande, urlInfo):
 
 
 async def randomMovie(message):
-    information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularMovies/k_cybyscn8")
+    information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularMovies/"+IMDbKey)
     id = random.randint(0, len(information))
     return information[id]
 
 
 async def randomTV(message):
-    information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularTVs/k_cybyscn8")
+    information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularTVs/"+IMDbKey)
     id = random.randint(0, len(information))
     return information[id]
 
@@ -171,12 +171,12 @@ async def on_message(message):
 
     elif message.content.startswith('$trailer '):
         movieChoose, trailerInfo = await pretraitement(message, '$trailer ',
-                                                       "https://imdb-api.com/en/API/YouTubeTrailer/k_cybyscn8/")
+                                                       "https://imdb-api.com/en/API/YouTubeTrailer/"+IMDbKey+"/")
         if trailerInfo is not None:
             await message.channel.send(trailerInfo[0].get('videoUrl'))  # embed=embed)
 
     # elif message.content.startswith('$boxOffice'):
-    #     information = await getInformation(message, "https://imdb-api.com/en/API/BoxOffice/k_cybyscn8")
+    #     information = await getInformation(message, "https://imdb-api.com/en/API/BoxOffice/"+IMDbKey)
     #     print(information)
     #     if information is not None:
     #         # embed = discord.Embed(title=movieChoose, colour=discord.Colour(0xfefc2e))
@@ -186,31 +186,31 @@ async def on_message(message):
     #         print("null")
 
     elif message.content.startswith('$top50Movies'):
-        information = await getInformation(message, "https://imdb-api.com/en/API/Top250Movies/k_cybyscn8")
+        information = await getInformation(message, "https://imdb-api.com/en/API/Top250Movies/"+IMDbKey)
         if information is not None:
             embed = discord.Embed(title="Top 50 movies", color=botColor)
             top50 = True
 
     elif message.content.startswith('$top50TVs'):
-        information = await getInformation(message, "https://imdb-api.com/en/API/Top250TVs/k_cybyscn8")
+        information = await getInformation(message, "https://imdb-api.com/en/API/Top250TVs/"+IMDbKey)
         if information is not None:
             embed = discord.Embed(title="Top 50 TVs", color=botColor)
             top50 = True
 
     elif message.content.startswith('$mostPopularMovies'):
-        information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularMovies/k_cybyscn8")
+        information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularMovies/"+IMDbKey)
         if information is not None:
             embed = discord.Embed(title="50 most popular movies", color=botColor)
             top50 = True
 
     elif message.content.startswith('$mostPopularTVs'):
-        information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularTVs/k_cybyscn8")
+        information = await getInformation(message, "https://imdb-api.com/en/API/MostPopularTVs/"+IMDbKey)
         if information is not None:
             embed = discord.Embed(title="50 most popular TVs", color=botColor)
             top50 = True
 
     # elif message.content.startswith('$comingSoon'):
-    #     information = await getInformation(message, "https://imdb-api.com/en/API/ComingSoon/k_cybyscn8")
+    #     information = await getInformation(message, "https://imdb-api.com/en/API/ComingSoon/"+IMDbKey)
     #     print(information)
     #     print(printTitles(information, information, message))
     #     if information is not None:
@@ -222,7 +222,7 @@ async def on_message(message):
         while information is None:
             movie = await randomMovie(message)
             information = await getInformation(message,
-                                               "https://imdb-api.com/en/API/YouTubeTrailer/k_cybyscn8/" + movie.get(
+                                               "https://imdb-api.com/en/API/YouTubeTrailer/"+IMDbKey+"/" + movie.get(
                                                    "id"))
             if information is not None:
                 await message.channel.send(information[0].get('videoUrl'))
@@ -232,7 +232,7 @@ async def on_message(message):
         while information is None:
             TV = await randomTV(message)
             information = await getInformation(message,
-                                               "https://imdb-api.com/en/API/YouTubeTrailer/k_cybyscn8/" + TV.get("id"))
+                                               "https://imdb-api.com/en/API/YouTubeTrailer/"+IMDbKey+"/" + TV.get("id"))
             if information is not None:
                 await message.channel.send(information[0].get('videoUrl'))
 
