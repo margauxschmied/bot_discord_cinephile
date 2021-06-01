@@ -290,4 +290,4 @@ async def on_message(message):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # connection = data.create_db_connection("localhost", "root", "Margaux0!", "cineBot")
-    client.run("ODMwMDc4ODM4MDAzNzI4NDA0.YHBdKQ.HD9p1ljdLWY41dFopDfIe11BpbU")
+    client.run("KEY")
